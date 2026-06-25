@@ -16,10 +16,6 @@ import openfl.display.StageScaleMode;
 import lime.app.Application;
 import states.TitleState;
 
-// If PoolManager is in a folder like source/backend/PoolManager.hx, 
-// make sure to uncomment and fix this import path:
-// import backend.PoolManager; 
-
 #if linux
 import lime.graphics.Image;
 @:cppInclude('./external/gamemode_client.h')
@@ -144,7 +140,7 @@ class Main extends Sprite
         // Load top mod
         Mods.loadTopMod();
 
-        // Preload essential textures (Fixed: Removed third boolean argument)
+        // Preload essential textures
         Assets.loadBitmapData("assets/images/characters.png", null);
         Assets.loadBitmapData("assets/images/backgrounds.png", null);
 
@@ -155,9 +151,9 @@ class Main extends Sprite
         // Preload fonts (if any)
         Assets.loadFont("assets/fonts/gameFont.ttf");
 
-        // Optional: preload object pools (notes, enemies, etc.)
-        // Note: If you still get a "Type not found" error here, ensure you imported it at the top.
-        PoolManager.init();
+        // Disabled to fix compilation error. 
+        // If needed, locate PoolManager.hx, import it at the top, and uncomment this line.
+        // PoolManager.init();
     }
 
     /**
