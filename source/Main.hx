@@ -16,6 +16,10 @@ import openfl.display.StageScaleMode;
 import lime.app.Application;
 import states.TitleState;
 
+// If PoolManager is in a folder like source/backend/PoolManager.hx, 
+// make sure to uncomment and fix this import path:
+// import backend.PoolManager; 
+
 #if linux
 import lime.graphics.Image;
 @:cppInclude('./external/gamemode_client.h')
@@ -117,8 +121,7 @@ class Main extends Sprite
         fpsBg.visible = ClientPrefs.data.showFPS;
 
         // --- PERFORMANCE SETTINGS ---
-        FlxG.fixedTimestep = true;            // Fixed timestep = smoother physics
-        FlxG.fixedTimestepStep = 1.0/60.0;
+        FlxG.fixedTimestep = true;           // Fixed timestep = smoother physics
         FlxG.game.focusLostFramerate = 60;   // Maintain FPS when unfocused
 
         FlxG.signals.gameResized.add(function(w, h)
@@ -141,9 +144,9 @@ class Main extends Sprite
         // Load top mod
         Mods.loadTopMod();
 
-        // Preload essential textures
-        Assets.loadBitmapData("assets/images/characters.png", null, true);
-        Assets.loadBitmapData("assets/images/backgrounds.png", null, true);
+        // Preload essential textures (Fixed: Removed third boolean argument)
+        Assets.loadBitmapData("assets/images/characters.png", null);
+        Assets.loadBitmapData("assets/images/backgrounds.png", null);
 
         // Preload sounds
         Assets.loadSound("assets/sounds/music1.ogg", true);
@@ -153,6 +156,7 @@ class Main extends Sprite
         Assets.loadFont("assets/fonts/gameFont.ttf");
 
         // Optional: preload object pools (notes, enemies, etc.)
+        // Note: If you still get a "Type not found" error here, ensure you imported it at the top.
         PoolManager.init();
     }
 
